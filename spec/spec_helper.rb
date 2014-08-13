@@ -18,4 +18,5 @@ end
 def setup
   @test_line = Line.new({:name => "Orient Express"})
   @test_station = Station.new({:name => "Limbo"})
+  @test_stop = Stop.new({:line_id => 1, :station_id => 3})
 end
