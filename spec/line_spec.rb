@@ -23,4 +23,9 @@ describe Line do
     expect(@test_line==@test_line).to eq true
   end
 
+  it 'sets its ID when you save it' do
+    @test_line.save
+    expect(@test_line.id).to be_an_instance_of Fixnum
+  end
+
 end
