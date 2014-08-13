@@ -14,4 +14,9 @@ describe Stop do
     expect(@test_stop.station_id).to eq 3
   end
 
+  # it "saves a stop to the stop table" do
+  #   @test_stop.save
+  #   expect(Stop.all).to eq @test_stop
+  # end
+
 end

@@ -30,4 +30,7 @@ attr_reader :name, :id
     @name==another_name.name && @id==another_name.id
   end
 
+  def add_line(input_line_id)
+    #incomplete method to add a line to a station
+  end
 end
