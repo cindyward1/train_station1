@@ -16,5 +16,6 @@ RSpec.configure do |config|
 end
 
 def setup
-  @test_line = Line.new({:name => "Yellow"})
+  @test_line = Line.new({:name => "Orient Express"})
+  @test_station = Station.new({:name => "Limbo"})
 end

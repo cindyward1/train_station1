@@ -10,7 +10,7 @@ describe Line do
   end
 
   it 'returns the attributes of the current line' do
-    expect(@test_line.name).to eq "Yellow"
+    expect(@test_line.name).to eq "Orient Express"
   end
 
   it "saves a line to the 'lines' table" do
