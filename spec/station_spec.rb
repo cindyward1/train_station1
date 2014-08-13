@@ -21,4 +21,9 @@ describe Station do
   it "returns true if two stations have the same attributes" do
     expect(@test_station==@test_station).to eq true
   end
+
+  it "sets its ID when you save it" do
+    @test_station.save
+    expect(@test_station.id).to be_an_instance_of Fixnum
+  end
 end
