@@ -13,4 +13,14 @@ describe Line do
     expect(@test_line.name).to eq "Yellow"
   end
 
+  it "saves a line to the 'lines' table" do
+    @test_line.save
+    expect(Line.all).to eq [@test_line]
+  end
+
+  it "returns true if two lines have the same attributes" do
+    @test_line.save
+    expect(@test_line==@test_line).to eq true
+  end
+
 end
