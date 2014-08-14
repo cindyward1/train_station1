@@ -27,11 +27,4 @@ describe Station do
     expect(@test_station.id).to be_an_instance_of Fixnum
   end
 
-  it "adds a line to the station" do
-    @test_station.save
-    @test_line.save
-    @test_station.add_line(@test_line)
-    expect() #incomplete spec & method
-
-  end
 end

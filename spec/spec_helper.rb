@@ -10,8 +10,11 @@ DB = PG.connect({:dbname => "train_test"})
 RSpec.configure do |config|
   config.before(:each) do
     DB.exec("DELETE FROM lines *;")
+    DB.exec("ALTER SEQUENCE lines_id_seq RESTART WITH 1;")
     DB.exec("DELETE FROM stops *;")
+    DB.exec("ALTER SEQUENCE stops_id_seq RESTART WITH 1;")
     DB.exec("DELETE FROM stations *;")
+    DB.exec("ALTER SEQUENCE stations_id_seq RESTART WITH 1;")
   end
 end
 
