@@ -35,6 +35,9 @@ end
 def line_menu
   puts "\nEnter 'a' to add a line"
   puts "Enter 'v' to view lines"
+  puts "Enter 's' to view all lines for a station"
+  puts "Enter 'd' to delete a line"
+  puts "Enter 'u' to update a line name"
   puts "Enter 'm' to return to the main menu"
   puts "Enter 'x' to exit"
 
@@ -44,6 +47,12 @@ def line_menu
     add_line
   elsif user_choice == 'v'
     view_lines
+  elsif user_choice == 's'
+    view_lines_by_station
+  elsif user_choice == 'd'
+    delete_line
+  elsif user_choice == 'u'
+    update_line
   elsif user_choice == 'x'
     exit
   elsif user_choice != 'm'
@@ -67,9 +76,42 @@ def view_lines
   puts "\n"
 end
 
+def view_lines_by_station
+  view_stations
+  puts "\nEnter the index number for the station you want to view:\n"
+  station_id = gets.chomp.to_i
+  puts "\nThe lines for station #{station_id} are:\n"
+  lines = Line.find_lines_from_station(station_id)
+  lines.each do |line|
+    puts "#{line.id}. #{line.name}"
+  end
+  puts "\n"
+end
+
+def delete_line
+  view_lines
+  puts "\nEnter the index number for the line you want to delete:"
+  line_id = gets.chomp.to_i
+  Line.delete(line_id)
+  puts "\nThis line has been deleted."
+end
+
+def update_line
+  view_lines
+  puts "\nEnter the index number for the line you want to update:"
+  line_id = gets.chomp.to_i
+  puts "\nEnter new name for the line:"
+  new_name = gets.chomp
+  Line.update(line_id, new_name)
+  puts "\nThe name has been changed to #{new_name}."
+end
+
 def station_menu
   puts "\nEnter 'a' to add a station"
   puts "Enter 'v' to view all stations"
+  puts "Enter 'l' to view all stations for a line"
+  puts "Enter 'd' to delete a station"
+  puts "Enter 'u' to update a station name"
   puts "Enter 'm' to return to the main menu"
   puts "Enter 'x' to exit"
 
@@ -79,6 +121,12 @@ def station_menu
     add_station
   elsif user_choice == 'v'
     view_stations
+  elsif user_choice == 'l'
+    view_stations_by_line
+  elsif user_choice == 'd'
+    delete_station
+  elsif user_choice == 'u'
+    update_station
   elsif user_choice == 'x'
     exit
   elsif user_choice != 'm'
@@ -102,9 +150,40 @@ def view_stations
   puts "\n"
 end
 
+def view_stations_by_line
+  view_lines
+  puts "\nEnter the index number for the line you want to view:\n"
+  line_id = gets.chomp.to_i
+  puts "\nThe stations for line #{line_id} are:\n"
+  stations = Station.find_stations_from_line(line_id)
+  stations.each do |station|
+    puts "#{station.id}. #{station.name}"
+  end
+  puts "\n"
+end
+
+def delete_station
+  view_stations
+  puts "\nEnter the index number for the station you want to delete:"
+  station_id = gets.chomp.to_i
+  Station.delete(station_id)
+  puts "\nThis station has been deleted."
+end
+
+def update_station
+  view_stations
+  puts "\nEnter the index number for the station you want to update:"
+  station_id = gets.chomp.to_i
+  puts "\nEnter new name for the station:"
+  new_name = gets.chomp
+  Station.update(station_id, new_name)
+  puts "\nThe name has been changed to #{new_name}."
+end
+
 def stop_menu
   puts "\nEnter 'a' to add a stop"
   puts "Enter 'v' to view all stops"
+  puts "Enter 'd' to delete a stop"
   puts "Enter 'm' to return to the main menu"
   puts "Enter 'x' to exit"
 
@@ -114,6 +193,8 @@ def stop_menu
     add_stop
   elsif user_choice == 'v'
     view_stops
+  elsif user_choice == 'd'
+    delete_stop
   elsif user_choice == 'x'
     exit
   elsif user_choice != 'm'
@@ -168,6 +249,14 @@ def view_stops
     puts "#{stop.id}. Line #{stop.line_id} at Station #{stop.station_id}"
   end
   puts "\n"
+end
+
+def delete_stop
+  view_stops
+  puts "Enter the index of the stop you want to delete:"
+  stop_id = gets.chomp.to_i
+  Stop.delete(stop_id)
+  puts "The stop has been deleted."
 end
 
 main_menu

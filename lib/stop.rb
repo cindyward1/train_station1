@@ -31,4 +31,8 @@ attr_reader :line_id, :station_id, :id
   def ==(another_stop)
     self.line_id==another_stop.line_id && self.station_id==another_stop.station_id
   end
+
+  def self.delete(stop_id)
+    DB.exec("DELETE FROM stops WHERE id = #{stop_id};")
+  end
 end

@@ -45,4 +45,13 @@ attr_reader :name, :id
     stations
   end
 
+  def self.delete(station_id)
+    DB.exec("DELETE FROM stations WHERE id = #{station_id};")
+    DB.exec("DELETE FROM stops WHERE station_id = #{station_id};")
+  end
+
+  def self.update(station_id, name)
+    DB.exec("UPDATE stations SET name = '#{name}' WHERE id = #{station_id};")
+  end
+
 end
