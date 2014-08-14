@@ -27,7 +27,22 @@ attr_reader :name, :id
   end
 
   def ==(another_line)
-    (@name == another_line.name) && (@id == another_line.id)
+    self.name == another_line.name && self.id == another_line.id
+  end
+
+  def self.find_lines_from_station(station_id)
+    results = DB.exec("SELECT lines.* FROM stations JOIN stops ON (stops.station_id = stations.id) " +
+                      "JOIN lines ON (lines.id = stops.line_id) WHERE stations.id = #{station_id};")
+    lines = []
+    results.each do |line|
+      attributes = {
+        :name => line['name'],
+        :id => line['id'].to_i
+      }
+      current_line = Line.new(attributes)
+      lines << current_line
+    end
+    lines
   end
 
 end

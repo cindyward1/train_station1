@@ -26,11 +26,23 @@ attr_reader :name, :id
     stations
   end
 
-  def ==(another_name)
-    @name==another_name.name && @id==another_name.id
+  def ==(another_station)
+    self.name == another_station.name && self.id == another_station.id
   end
 
-  def add_line(input_line_id)
-    #incomplete method to add a line to a station
+  def self.find_stations_from_line(line_id)
+    results = DB.exec("SELECT stations.* FROM lines JOIN stops ON (lines.id = stops.line_id) " +
+                      "JOIN stations ON (stops.station_id = stations.id) WHERE lines.id = #{line_id};")
+    stations = []
+    results.each do |station|
+      attributes = {
+        :name => station['name'],
+        :id => station['id'].to_i
+      }
+      current_station = Station.new(attributes)
+      stations << current_station
+    end
+    stations
   end
+
 end

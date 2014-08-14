@@ -8,7 +8,7 @@ require 'pry'
 DB = PG.connect({:dbname => "train_test"})
 
 RSpec.configure do |config|
-  config.before(:each) do
+  config.after(:each) do
     DB.exec("DELETE FROM lines *;")
     DB.exec("ALTER SEQUENCE lines_id_seq RESTART WITH 1;")
     DB.exec("DELETE FROM stops *;")

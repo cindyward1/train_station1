@@ -19,12 +19,23 @@ describe Station do
   end
 
   it "returns true if two stations have the same attributes" do
-    expect(@test_station==@test_station).to eq true
+    @test_station.save
+    test_station1 = Station.new({:name => "Limbo", :id=>@test_station.id})
+    expect(test_station1).to eq @test_station
   end
 
   it "sets its ID when you save it" do
     @test_station.save
     expect(@test_station.id).to be_an_instance_of Fixnum
+  end
+
+  it "retrieves all the stations for a line" do
+    @test_station.save
+    @test_line.save
+    test_stop = Stop.new({:line_id => @test_line.id, :station_id => @test_station.id})
+    test_stop.save
+    test_stations = Station.find_stations_from_line(@test_line.id)
+    expect(test_stations.first).to eq @test_station
   end
 
 end
